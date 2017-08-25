@@ -1,0 +1,11 @@
+Just for anyone else with the same problem (found the following on the last page of above link), which worked for me:
+
+you need to edit the file "lib\submitWithConfiguration.m" and modify the submitParts() function by replacing this line:
+
+responseBody = urlread(submissionUrl, 'post', params); //line 66
+
+with this line:
+
+[code, responseBody] = system(sprintf('echo jsonBody=%s | curl -s -k -X POST -d @- %s', body, submissionUrl));
+
+and then restart Octave.
